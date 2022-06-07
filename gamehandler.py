@@ -48,3 +48,8 @@ class GameHandler(Turtle):
                 self.states.pop(i)
                 return True
         return False
+
+    def save_states(self):
+        df = pd.DataFrame(self.states)
+        df.columns = ['Name', 'X', 'Y']
+        df['Name'].to_csv('data/states_to_learn.csv')

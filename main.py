@@ -21,13 +21,14 @@ def main():
         screen.update()
         input = turtle.textinput(
             f'{gamehandler.score}/{max_score} States correct',
-            'Enter states:')
+            'Enter states:').strip()
         answer = ' '.join([word.capitalize() for word in input.split(' ')])
 
         if not gamehandler.check_answer(answer):
             game_is_on = False
+            gamehandler.save_states()
 
-    screen.exitonclick()
+    turtle.bye()
 
 
 if __name__ == '__main__':
