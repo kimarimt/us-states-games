@@ -1,31 +1,33 @@
-import pandas as pd
-from dataclasses import dataclass
+import turtle
+from gamehandler import GameHandler
 
 
-@dataclass
-class State:
-    name: str
-    x_cor: int
-    y_cor: int
-
-
-def get_states():
-    df = pd.read_csv('data/50_states.csv')
-    states = []
-
-    for entry in df.values:
-        state = State(
-            name=entry[0],
-            x_cor=entry[1],
-            y_cor=entry[2]
-        )
-        states.append(state)
-
-    return states
+SCREEN_WIDTH = 700
+SCREEN_HEIGHT = 500
 
 
 def main():
-    print(get_states())
+    screen = turtle.getscreen()
+    gamehandler = GameHandler()
+    max_score = len(gamehandler.states)
+    game_is_on = True
+
+    screen.clearscreen()
+    screen.title('U.S States Game')
+    screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
+    screen.bgpic('data/blank_states_img.gif')
+
+    while game_is_on and len(gamehandler.states) != 0:
+        screen.update()
+        input = turtle.textinput(
+            f'{gamehandler.score}/{max_score} States correct',
+            'Enter states:')
+        answer = ' '.join([word.capitalize() for word in input.split(' ')])
+
+        if not gamehandler.check_answer(answer):
+            game_is_on = False
+
+    screen.exitonclick()
 
 
 if __name__ == '__main__':
