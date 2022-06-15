@@ -19,10 +19,10 @@ def main():
 
     while game_is_on and len(gamehandler.states) != 0:
         screen.update()
-        input = turtle.textinput(
+        user_input = turtle.textinput(
             f'{gamehandler.score}/{max_score} States correct',
             'Enter states:').strip()
-        answer = ' '.join([word.capitalize() for word in input.split(' ')])
+        answer = ' '.join([word.capitalize() for word in user_input.split(' ')])
 
         if not gamehandler.check_answer(answer):
             game_is_on = False
